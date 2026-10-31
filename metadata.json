@@ -1,0 +1,6 @@
+{
+  "name": "StreamVault - Creator Video Hub",
+  "description": "Creator-exclusive video upload and responsive streaming web application with offline storage, mobile PWA support, video downloads, and rich media controls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

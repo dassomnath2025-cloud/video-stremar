@@ -1,0 +1,115 @@
+[
+  {
+    "id": "seed-big-buck-bunny",
+    "title": "Big Buck Bunny - HD Animation Showcase",
+    "description": "An open-source animated short featuring Big Buck Bunny. Fully encoded with high-definition AVC/H.264 video and AAC audio for smooth mobile streaming and offline caching.",
+    "category": "Animation",
+    "tags": [
+      "Animation",
+      "HD",
+      "Blender",
+      "Cinema"
+    ],
+    "duration": 25,
+    "resolution": "1080p 60fps",
+    "fileSize": 1196842,
+    "fileName": "bunny-clip.mp4",
+    "filePath": "/app/applet/data/videos/bunny-clip.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80",
+    "uploadedAt": "2026-10-28T15:07:56.684Z",
+    "creatorEmail": "dassomnath2025@gmail.com",
+    "creatorName": "Somnath Das",
+    "views": 4820,
+    "likes": 312,
+    "downloads": 143,
+    "comments": [
+      {
+        "id": "c1",
+        "author": "Alex Rivera",
+        "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80",
+        "content": "Streaming is buttery smooth and seeking works instantly! Downloaded it for my subway commute.",
+        "createdAt": "2026-10-29T15:07:56.684Z"
+      }
+    ],
+    "isSample": true
+  },
+  {
+    "id": "seed-nature-glaciers",
+    "title": "Wonders of Nature: Alpine Horizons & Motion",
+    "description": "Immersive cinematic capture of pristine glaciers and alpine landscapes. High clarity encoding suitable for mobile AMOLED displays.",
+    "category": "Nature",
+    "tags": [
+      "Nature",
+      "Documentary",
+      "Landscape",
+      "Wildlife"
+    ],
+    "duration": 20,
+    "resolution": "4K Ultra HD",
+    "fileSize": 18789585,
+    "fileName": "nature-clip.mp4",
+    "filePath": "/app/applet/data/videos/nature-clip.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=1200&q=80",
+    "uploadedAt": "2026-10-29T15:07:56.684Z",
+    "creatorEmail": "dassomnath2025@gmail.com",
+    "creatorName": "Somnath Das",
+    "views": 2950,
+    "likes": 245,
+    "downloads": 99,
+    "comments": [],
+    "isSample": true
+  },
+  {
+    "id": "seed-tears-of-steel",
+    "title": "Cyberpunk Nexus - Sci-Fi Broadcast Demo",
+    "description": "Technical calibration and broadcast fidelity test stream with frequency matched audio and SMPTE HD color alignment.",
+    "category": "Sci-Fi",
+    "tags": [
+      "Sci-Fi",
+      "Broadcast",
+      "VFX",
+      "Cyberpunk"
+    ],
+    "duration": 20,
+    "resolution": "1080p HD",
+    "fileSize": 225292,
+    "fileName": "scifi-clip.mp4",
+    "filePath": "/app/applet/data/videos/scifi-clip.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
+    "uploadedAt": "2026-10-30T15:07:56.684Z",
+    "creatorEmail": "dassomnath2025@gmail.com",
+    "creatorName": "Somnath Das",
+    "views": 1840,
+    "likes": 198,
+    "downloads": 88,
+    "comments": [],
+    "isSample": true
+  },
+  {
+    "id": "seed-space-voyage",
+    "title": "Deep Space Odyssey: Celestial Fractal Voyage",
+    "description": "A mathematical cosmic voyage through fractal space topologies with atmospheric spatial synthesizer soundscapes.",
+    "category": "Space",
+    "tags": [
+      "Space",
+      "Fractal",
+      "Cosmos",
+      "4K",
+      "Ambient"
+    ],
+    "duration": 20,
+    "resolution": "1440p QHD",
+    "fileSize": 36231712,
+    "fileName": "space-clip.mp4",
+    "filePath": "/app/applet/data/videos/space-clip.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+    "uploadedAt": "2026-10-31T07:07:56.684Z",
+    "creatorEmail": "dassomnath2025@gmail.com",
+    "creatorName": "Somnath Das",
+    "views": 3410,
+    "likes": 289,
+    "downloads": 134,
+    "comments": [],
+    "isSample": true
+  }
+]
