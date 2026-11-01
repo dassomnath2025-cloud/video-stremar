@@ -210,40 +210,52 @@ export const DinoControlBar: React.FC<DinoControlBarProps> = ({
     setHoverPosition((pos / rect.width) * duration);
   };
 
+  const handleTouchProgress = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!progressBarRef.current) return;
+    const touch = e.touches[0];
+    const rect = progressBarRef.current.getBoundingClientRect();
+    const pos = Math.max(0, Math.min(rect.width, touch.clientX - rect.left));
+    setHoverPosition((pos / rect.width) * duration);
+    onSeek(e);
+  };
+
   return (
     <div
       className={`absolute bottom-0 inset-x-0 p-1.5 sm:p-2.5 bg-gradient-to-t from-black/95 via-black/80 to-transparent transition-opacity duration-300 z-30 font-mono ${
         showControls ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
-      {/* Dino Game Scrubber Track Zone (Compact) */}
-      <div className="relative mb-1 sm:mb-1.5 pt-2.5 sm:pt-3.5 px-1">
+      {/* Dino Game Scrubber Track Zone (Compact & Mobile-Adjusted) */}
+      <div className="relative mb-1 sm:mb-1.5 pt-2 sm:pt-3 px-0.5 sm:px-1">
         {/* Sky Elements (Subtle & Petite) */}
-        <div className="absolute top-0 inset-x-0 h-4 overflow-hidden pointer-events-none flex justify-between px-4 opacity-50">
-          <PixelCloud className="w-6 h-2 sm:w-8 sm:h-2.5" />
-          <PixelBird flap={birdFlap} className="w-4 h-3 sm:w-5 sm:h-3.5 ml-4" />
-          <PixelCloud className="w-7 h-2 sm:w-9 sm:h-2.5 hidden sm:block" />
+        <div className="absolute top-0 inset-x-0 h-4 overflow-hidden pointer-events-none flex justify-between px-3 opacity-40">
+          <PixelCloud className="w-5 h-1.5 sm:w-8 sm:h-2.5" />
+          <PixelBird flap={birdFlap} className="w-3.5 h-2.5 sm:w-5 sm:h-3.5 ml-3" />
+          <PixelCloud className="w-6 h-1.5 sm:w-9 sm:h-2.5 hidden sm:block" />
         </div>
 
         {/* Hover preview tooltip */}
         {hoverPosition !== null && (
           <div
-            className="absolute -top-3 px-1.5 py-0.2 rounded bg-amber-400 text-slate-950 text-[9px] font-bold shadow -translate-x-1/2 pointer-events-none z-40 border border-black"
+            className="absolute -top-3.5 px-1.5 py-0.2 rounded bg-amber-400 text-slate-950 text-[9px] font-bold shadow -translate-x-1/2 pointer-events-none z-40 border border-black"
             style={{
-              left: `${Math.max(3, Math.min(97, (hoverPosition / duration) * 100))}%`,
+              left: `${Math.max(4, Math.min(96, (hoverPosition / duration) * 100))}%`,
             }}
           >
             {formatArcadeScore(hoverPosition)}
           </div>
         )}
 
-        {/* Main Track Container */}
+        {/* Main Track Container with Fluid Touch Scrubbing */}
         <div
           ref={progressBarRef}
           onClick={onSeek}
           onMouseMove={handleMouseMoveProgress}
           onMouseLeave={() => setHoverPosition(null)}
-          className="relative group w-full h-6 sm:h-7 cursor-pointer flex items-end pb-1"
+          onTouchStart={handleTouchProgress}
+          onTouchMove={handleTouchProgress}
+          onTouchEnd={() => setHoverPosition(null)}
+          className="relative group w-full h-7 sm:h-8 cursor-pointer flex items-end pb-1 touch-none"
         >
           {/* Ground Track Line */}
           <div className="absolute bottom-1.5 inset-x-0 h-[2px] bg-slate-700/80 rounded-none overflow-hidden">
@@ -299,13 +311,13 @@ export const DinoControlBar: React.FC<DinoControlBarProps> = ({
       </div>
 
       {/* Control Buttons & Scoreboard Row (Compact) */}
-      <div className="flex items-center justify-between text-slate-200 text-xs">
+      <div className="flex items-center justify-between text-slate-200 text-xs gap-1">
         {/* Left Side: Buttons & Score */}
-        <div className="flex items-center gap-1 sm:gap-2">
+        <div className="flex items-center gap-1 sm:gap-2 min-w-0">
           {/* Play / Pause */}
           <button
             onClick={onTogglePlay}
-            className="p-1 sm:p-1.5 rounded-md bg-slate-900 border border-slate-700 hover:border-amber-400 text-amber-400 active:translate-y-0.5 transition"
+            className="p-1.5 sm:p-1.5 rounded-md bg-slate-900 border border-slate-700 hover:border-amber-400 text-amber-400 active:scale-90 transition touch-manipulation flex-shrink-0"
             aria-label={isPlaying ? 'Pause' : 'Play'}
           >
             {isPlaying ? (
@@ -318,7 +330,7 @@ export const DinoControlBar: React.FC<DinoControlBarProps> = ({
           {/* Skip -10s */}
           <button
             onClick={() => onSeekRelative(-10, 'left')}
-            className="p-1 rounded-md bg-slate-900/80 border border-slate-800 hover:border-slate-600 hover:text-white transition"
+            className="p-1 sm:p-1 rounded-md bg-slate-900/80 border border-slate-800 hover:border-slate-600 hover:text-white transition touch-manipulation active:scale-90 flex-shrink-0"
             title="Rewind 10s"
           >
             <RotateCcw className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
@@ -327,17 +339,17 @@ export const DinoControlBar: React.FC<DinoControlBarProps> = ({
           {/* Skip +10s */}
           <button
             onClick={() => onSeekRelative(10, 'right')}
-            className="p-1 rounded-md bg-slate-900/80 border border-slate-800 hover:border-slate-600 hover:text-white transition"
+            className="p-1 sm:p-1 rounded-md bg-slate-900/80 border border-slate-800 hover:border-slate-600 hover:text-white transition touch-manipulation active:scale-90 flex-shrink-0"
             title="Forward 10s"
           >
             <RotateCw className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
           </button>
 
           {/* Volume */}
-          <div className="flex items-center gap-1 group/vol">
+          <div className="flex items-center gap-1 group/vol flex-shrink-0">
             <button
               onClick={onToggleMute}
-              className="p-1 rounded-md bg-slate-900/80 border border-slate-800 hover:border-slate-600 text-slate-300"
+              className="p-1 sm:p-1 rounded-md bg-slate-900/80 border border-slate-800 hover:border-slate-600 text-slate-300 touch-manipulation"
               aria-label={isMuted ? 'Unmute' : 'Mute'}
             >
               {isMuted || volume === 0 ? (
@@ -358,8 +370,8 @@ export const DinoControlBar: React.FC<DinoControlBarProps> = ({
           </div>
 
           {/* Time Score */}
-          <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-slate-900/90 border border-slate-800 text-[10px] sm:text-[11px]">
-            <span className="text-amber-400 font-bold uppercase tracking-wider text-[9px]">
+          <div className="flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded bg-slate-900/90 border border-slate-800 text-[9px] sm:text-[11px] flex-shrink-0">
+            <span className="text-amber-400 font-bold uppercase tracking-wider text-[8px] sm:text-[9px]">
               T
             </span>
             <span className="text-white font-mono">{formatArcadeScore(currentTime)}</span>

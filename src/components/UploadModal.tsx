@@ -191,37 +191,37 @@ export const UploadModal: React.FC<UploadModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="relative w-full max-w-2xl rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden my-8 text-slate-100">
+    <div className="fixed inset-0 z-50 flex flex-col sm:items-center sm:justify-center bg-black/85 backdrop-blur-md sm:p-4 overflow-hidden">
+      <div className="relative w-full h-full sm:h-auto sm:max-h-[90vh] sm:max-w-2xl sm:rounded-2xl bg-slate-900 border-0 sm:border border-slate-800 shadow-2xl flex flex-col text-slate-100 overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-800 bg-slate-950/60">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
-              <Film className="w-5 h-5" />
+        <div className="flex items-center justify-between p-3.5 sm:p-5 border-b border-slate-800 bg-slate-950/80 backdrop-blur flex-shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 flex-shrink-0">
+              <Film className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div>
-              <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-                Upload New Video
-                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 border border-emerald-500/30 text-emerald-300">
-                  OPEN TO EVERYONE
+            <div className="min-w-0">
+              <h2 className="text-sm sm:text-lg font-bold text-white flex items-center gap-1.5 flex-wrap">
+                <span>Upload New Video</span>
+                <span className="px-1.5 py-0.2 rounded text-[9px] sm:text-[10px] font-bold bg-emerald-500/20 border border-emerald-500/30 text-emerald-300">
+                  OPEN
                 </span>
               </h2>
-              <p className="text-xs text-slate-400">
-                Share high-definition videos with streaming, offline caching, and downloads
+              <p className="text-[11px] sm:text-xs text-slate-400 truncate">
+                Streamable, downloadable & offline-ready
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex-shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Content */}
-        <div className="p-4 sm:p-6 max-h-[80vh] overflow-y-auto">
-          <form onSubmit={handleUploadSubmit} className="space-y-5">
+        {/* Content with Flex Scroll Container */}
+        <form onSubmit={handleUploadSubmit} className="flex-1 overflow-y-auto flex flex-col justify-between">
+          <div className="p-3.5 sm:p-6 space-y-4 sm:space-y-5">
             {uploadError && (
               <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 flex-shrink-0" />
@@ -462,36 +462,37 @@ export const UploadModal: React.FC<UploadModalProps> = ({
               </div>
             )}
 
-            {/* Submit Buttons */}
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
-              <button
-                type="button"
-                onClick={onClose}
-                disabled={isUploading}
-                className="px-4 py-2 rounded-xl border border-slate-700 text-xs sm:text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                disabled={isUploading || !selectedFile}
-                className="px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold text-xs sm:text-sm shadow-lg shadow-indigo-600/30 flex items-center gap-2 transition disabled:opacity-50 active:scale-95"
-              >
-                {isUploading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Publishing Video...</span>
-                  </>
-                ) : (
-                  <>
-                    <Upload className="w-4 h-4" />
-                    <span>Publish Video</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
+          </div>
+
+          {/* Sticky Bottom Actions Bar */}
+          <div className="flex items-center justify-end gap-2.5 p-3.5 sm:p-4 border-t border-slate-800 bg-slate-950/90 backdrop-blur pb-[max(0.75rem,env(safe-area-inset-bottom))] flex-shrink-0">
+            <button
+              type="button"
+              onClick={onClose}
+              disabled={isUploading}
+              className="px-4 py-2 rounded-xl border border-slate-700 text-xs sm:text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition active:scale-95 touch-manipulation"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isUploading || !selectedFile}
+              className="px-5 py-2.5 sm:py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold text-xs sm:text-sm shadow-lg shadow-indigo-600/30 flex items-center gap-2 transition disabled:opacity-50 active:scale-95 touch-manipulation"
+            >
+              {isUploading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Publishing Video...</span>
+                </>
+              ) : (
+                <>
+                  <Upload className="w-4 h-4" />
+                  <span>Publish Video</span>
+                </>
+              )}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

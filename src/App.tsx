@@ -180,21 +180,23 @@ export default function App() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-0 sm:px-6 lg:px-8 py-0 sm:py-6">
         {currentTab === 'offline' ? (
           /* Offline Video Library Shelf */
-          <OfflineLibrary
-            onPlayVideo={handlePlayOfflineVideo}
-            onClose={() => setCurrentTab('home')}
-          />
+          <div className="px-3.5 sm:px-0 py-4 sm:py-0">
+            <OfflineLibrary
+              onPlayVideo={handlePlayOfflineVideo}
+              onClose={() => setCurrentTab('home')}
+            />
+          </div>
         ) : (
           /* Home Streaming & Video Browser View */
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {/* Active Video Player Stage */}
             {currentVideo ? (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
                 {/* Main Player & Details Column (8 cols on desktop) */}
-                <div className="lg:col-span-8 space-y-5">
+                <div className="lg:col-span-8 space-y-4 sm:space-y-5">
                   <VideoPlayer
                     key={currentVideo.id}
                     video={currentVideo}
@@ -203,18 +205,20 @@ export default function App() {
                     onSavedOfflineSuccess={() => refreshOfflineCount()}
                   />
 
-                  <VideoDetails
-                    video={currentVideo}
-                    isOfflineMode={isCurrentVideoOffline}
-                    creatorSession={creatorSession}
-                    onDeleteVideo={handleDeleteVideo}
-                    onDownload={handleDownload}
-                    onSavedOfflineSuccess={() => refreshOfflineCount()}
-                  />
+                  <div className="px-3.5 sm:px-0">
+                    <VideoDetails
+                      video={currentVideo}
+                      isOfflineMode={isCurrentVideoOffline}
+                      creatorSession={creatorSession}
+                      onDeleteVideo={handleDeleteVideo}
+                      onDownload={handleDownload}
+                      onSavedOfflineSuccess={() => refreshOfflineCount()}
+                    />
+                  </div>
                 </div>
 
                 {/* Up Next / Recommended Sidebar (4 cols on desktop) */}
-                <div className="lg:col-span-4 space-y-4">
+                <div className="lg:col-span-4 space-y-4 px-3.5 sm:px-0">
                   <div className="flex items-center justify-between pb-2 border-b border-slate-800">
                     <h3 className="text-sm font-bold text-white flex items-center gap-1.5 uppercase tracking-wider">
                       <Tv className="w-4 h-4 text-indigo-400" />
@@ -263,11 +267,11 @@ export default function App() {
             ) : null}
 
             {/* Video Catalog Filter & Grid Section */}
-            <div className="pt-6 border-t border-slate-800/80 space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="pt-6 border-t border-slate-800/80 space-y-5 sm:space-y-6 px-3.5 sm:px-0">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
                 <div>
-                  <h2 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-                    <Film className="w-5 h-5 text-indigo-400" />
+                  <h2 className="text-base sm:text-xl font-bold text-white flex items-center gap-2">
+                    <Film className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-400" />
                     <span>Browse Video Catalog</span>
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-400">
@@ -276,10 +280,10 @@ export default function App() {
                 </div>
 
                 {/* Sort selector */}
-                <div className="flex items-center gap-2 text-xs">
-                  <SlidersHorizontal className="w-3.5 h-3.5 text-slate-400" />
-                  <span className="text-slate-400">Sort by:</span>
-                  <div className="flex rounded-lg bg-slate-900 border border-slate-800 p-0.5">
+                <div className="flex items-center gap-2 text-xs overflow-x-auto no-scrollbar py-0.5">
+                  <SlidersHorizontal className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+                  <span className="text-slate-400 flex-shrink-0">Sort by:</span>
+                  <div className="flex rounded-lg bg-slate-900 border border-slate-800 p-0.5 flex-shrink-0">
                     <button
                       onClick={() => setSortBy('recent')}
                       className={`px-2.5 py-1 rounded-md transition font-medium ${
@@ -323,7 +327,7 @@ export default function App() {
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5 sm:gap-6">
                   {videos.map((video) => (
                     <VideoCard
                       key={video.id}

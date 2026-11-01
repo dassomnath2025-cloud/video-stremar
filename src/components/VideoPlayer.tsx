@@ -339,7 +339,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       onMouseMove={resetControlsTimer}
       onMouseLeave={() => isPlaying && setShowControls(false)}
       className={`relative w-full overflow-hidden bg-black select-none transition-all duration-300 ${
-        isTheater ? 'max-h-[85vh] h-[75vh]' : 'aspect-video max-h-[70vh] rounded-2xl shadow-2xl border border-slate-800'
+        isTheater ? 'max-h-[85vh] h-[75vh]' : 'aspect-video max-h-[75vh] rounded-none sm:rounded-2xl shadow-2xl border-0 sm:border border-slate-800'
       }`}
     >
       {/* HTML5 Video Element */}
@@ -361,84 +361,79 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
       {/* Double Tap Visual Animation Feedbacks */}
       {tapFeedback.visible && tapFeedback.side === 'left' && (
-        <div className="absolute top-1/2 left-8 -translate-y-1/2 flex flex-col items-center justify-center p-4 rounded-full bg-black/60 backdrop-blur-md text-white animate-scale-pulse pointer-events-none z-30">
-          <RotateCcw className="w-8 h-8 text-indigo-400 animate-spin-reverse" />
-          <span className="text-xs font-bold mt-1">-10s</span>
+        <div className="absolute top-1/2 left-6 sm:left-8 -translate-y-1/2 flex flex-col items-center justify-center p-3 sm:p-4 rounded-full bg-black/70 backdrop-blur-md text-white animate-scale-pulse pointer-events-none z-30">
+          <RotateCcw className="w-6 h-6 sm:w-8 sm:h-8 text-indigo-400 animate-spin-reverse" />
+          <span className="text-[10px] sm:text-xs font-bold mt-1">-10s</span>
         </div>
       )}
       {tapFeedback.visible && tapFeedback.side === 'right' && (
-        <div className="absolute top-1/2 right-8 -translate-y-1/2 flex flex-col items-center justify-center p-4 rounded-full bg-black/60 backdrop-blur-md text-white animate-scale-pulse pointer-events-none z-30">
-          <RotateCw className="w-8 h-8 text-indigo-400 animate-spin" />
-          <span className="text-xs font-bold mt-1">+10s</span>
+        <div className="absolute top-1/2 right-6 sm:right-8 -translate-y-1/2 flex flex-col items-center justify-center p-3 sm:p-4 rounded-full bg-black/70 backdrop-blur-md text-white animate-scale-pulse pointer-events-none z-30">
+          <RotateCw className="w-6 h-6 sm:w-8 sm:h-8 text-indigo-400 animate-spin" />
+          <span className="text-[10px] sm:text-xs font-bold mt-1">+10s</span>
         </div>
       )}
 
       {/* Buffering Spinner */}
       {isBuffering && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none z-20">
-          <Loader2 className="w-12 h-12 text-indigo-500 animate-spin" />
+          <Loader2 className="w-10 h-10 sm:w-12 sm:h-12 text-indigo-500 animate-spin" />
         </div>
       )}
 
-      {/* Big Play/Pause Center Indicator (visible when paused or hovering) */}
+      {/* Big Play/Pause Center Indicator */}
       {!isPlaying && !isBuffering && (
         <button
           onClick={togglePlay}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-indigo-600/90 hover:bg-indigo-600 text-white flex items-center justify-center shadow-2xl backdrop-blur-sm transition transform hover:scale-110 active:scale-95 z-20"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-indigo-600/90 hover:bg-indigo-600 text-white flex items-center justify-center shadow-2xl backdrop-blur-sm transition transform hover:scale-110 active:scale-95 z-20"
         >
-          <Play className="w-8 h-8 sm:w-10 sm:h-10 ml-1 fill-white" />
+          <Play className="w-7 h-7 sm:w-10 sm:h-10 ml-1 fill-white" />
         </button>
       )}
 
       {/* Top Bar Overlay: Title & Badges */}
       <div
-        className={`absolute top-0 inset-x-0 p-4 bg-gradient-to-b from-black/80 via-black/40 to-transparent flex items-center justify-between transition-opacity duration-300 z-30 ${
+        className={`absolute top-0 inset-x-0 p-2.5 sm:p-4 bg-gradient-to-b from-black/85 via-black/40 to-transparent flex items-center justify-between transition-opacity duration-300 z-30 ${
           showControls ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
-        <div className="flex items-center gap-2 max-w-[70%]">
-          <span className="text-sm sm:text-base font-semibold text-white truncate drop-shadow">
+        <div className="flex items-center gap-1.5 sm:gap-2 max-w-[65%] sm:max-w-[70%]">
+          <span className="text-xs sm:text-base font-semibold text-white truncate drop-shadow">
             {video.title}
           </span>
-          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/80 text-white uppercase tracking-wider">
+          <span className="px-1.5 py-0.2 rounded text-[9px] sm:text-[10px] font-bold bg-indigo-500/80 text-white uppercase tracking-wider flex-shrink-0">
             {video.resolution || '1080p'}
           </span>
-          {isOfflineMode && (
-            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/80 text-white uppercase">
-              Offline Cache
-            </span>
-          )}
         </div>
 
         {/* Quick action buttons in top-right */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {/* Offline Save Action */}
           <button
             onClick={handleSaveOffline}
             disabled={isSaved || isSaving}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold backdrop-blur-md transition ${
+            className={`flex items-center gap-1 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs font-semibold backdrop-blur-md transition ${
               isSaved
                 ? 'bg-emerald-600/80 text-white'
                 : isSaving
                 ? 'bg-indigo-600/80 text-white cursor-wait'
-                : 'bg-black/40 hover:bg-black/60 text-slate-200 hover:text-white border border-white/10'
+                : 'bg-black/50 hover:bg-black/70 text-slate-200 hover:text-white border border-white/10'
             }`}
-            title={isSaved ? 'Saved to Offline Library' : 'Save for Offline viewing without internet'}
+            title={isSaved ? 'Saved to Offline Library' : 'Save for Offline viewing'}
           >
             {isSaved ? (
               <>
                 <Check className="w-3.5 h-3.5 text-emerald-300" />
-                <span className="hidden sm:inline">Offline Ready</span>
+                <span className="hidden md:inline">Saved</span>
               </>
             ) : isSaving ? (
               <>
                 <Loader2 className="w-3.5 h-3.5 animate-spin text-indigo-300" />
-                <span>{saveProgress}%</span>
+                <span className="text-[11px]">{saveProgress}%</span>
               </>
             ) : (
               <>
                 <HardDriveDownload className="w-3.5 h-3.5 text-indigo-400" />
-                <span className="hidden sm:inline">Save Offline</span>
+                <span className="hidden md:inline">Save</span>
               </>
             )}
           </button>
@@ -446,11 +441,11 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
           {/* Download Button */}
           <button
             onClick={handleDownload}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-black/40 hover:bg-black/60 text-slate-200 hover:text-white border border-white/10 backdrop-blur-md transition"
+            className="flex items-center gap-1 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs font-semibold bg-black/50 hover:bg-black/70 text-slate-200 hover:text-white border border-white/10 backdrop-blur-md transition"
             title="Download video file directly to your device"
           >
             <Download className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="hidden sm:inline">Download</span>
+            <span className="hidden md:inline">Download</span>
           </button>
         </div>
       </div>
